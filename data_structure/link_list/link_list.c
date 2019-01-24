@@ -69,9 +69,39 @@ BOOL del(int pos) {
     return TRUE;
 }
 
+
+SingleLinkList* reverse(SingleLinkList* linkList) {
+    SingleLinkListNode* head = linkList->head;
+    
+    SingleLinkListNode* pre = head;
+    SingleLinkListNode* cur = pre->next;
+    if(cur == NULL) {
+        //link list only contain 0 node
+        return linkList;
+    }
+    SingleLinkListNode* next = cur->next;
+
+    pre->next = NULL;
+    while(next!= NULL) {
+        printf("**** %s\n", cur->data);
+        cur->next = pre;
+        pre = cur;
+        cur = next;
+        next = next->next;
+    }
+    cur->next = pre;
+    //!!!!importance to malloc new memory
+    head = (SingleLinkListNode*)malloc(sizeof(SingleLinkListNode));
+    head->data = NULL;
+    head->next = cur;
+    linkList->head = head;
+    return linkList; 
+}
+
 int main(int argc, char const *argv[])
 {
     init();
+    add("he");
     add("he");
     add("llo");
     add("wor");
@@ -84,6 +114,13 @@ int main(int argc, char const *argv[])
         printf(" %s \n", p->data);
         p = p->next;
     }
-    /* code */
+
+    reverse(linkList);
+    printf("======== After reverse ========\n");
+    p= linkList->head->next;
+    while(p != NULL) {
+        printf(" %s \n", p->data);
+        p = p->next;
+    }
     return EXIT_SUCCESS;
 }

@@ -29,4 +29,6 @@ BOOL del(int pos);
 
 BOOL insert(void* data, int pos);
 
+SingleLinkList* reverse(SingleLinkList* originLinkList);
+
 #endif
